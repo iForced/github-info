@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #0064EB;
+    padding: 10px 50px;
+}
+.logo,
+.search {
+    margin-right: 30px;
+}
+.search_input {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    width: 500px;
+}
+.main {
+    min-height: calc(100vh - 127px);
+}
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9F9F9;
+    padding: 20px 50px;
+}

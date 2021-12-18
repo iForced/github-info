@@ -1,0 +1,14 @@
+.repo_item {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    min-width: 870px;
+}
+.repo_title {
+    color: #0064EB;
+    font-size: 24px;
+    margin-bottom: 10px;
+}

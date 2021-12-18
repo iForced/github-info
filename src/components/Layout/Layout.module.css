@@ -15,7 +15,9 @@
     width: 500px;
 }
 .main {
-    min-height: calc(100vh - 127px);
+    min-height: calc(100vh - 167px);
+    margin: 0 auto;
+    max-width: 1600px;
 }
 .footer {
     display: flex;

@@ -1,0 +1,17 @@
+.user_info {
+    display: flex;
+    flex-direction: column;
+}
+.user_name {
+    font-size: 26px;
+    font-weight: bold;
+}
+.user_link a {
+    color: #0064EB;
+}
+.user_followers {
+    display: flex;
+}
+.user_followers span {
+    margin-right: 20px;
+}

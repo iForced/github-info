@@ -1,0 +1,8 @@
+.user_repos {
+    display: flex;
+    flex-direction: column;
+}
+.repos_count {
+    font-size: 32px;
+    margin-bottom: 20px;
+}

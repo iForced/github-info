@@ -1,8 +1,14 @@
 export type UserType = {
-    id: string
+    id: number
     login: string
     avatar_url: string
     html_url: string
     followers: number
     following: number
+}
+export type RepoType = {
+    id: number
+    name: string
+    description: string
+    html_url: string
 }

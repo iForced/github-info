@@ -18,17 +18,23 @@ const UserInfo = () => {
     return (
         <div className={s.user_info}>
             <div className={s.user_avatar}>
-                <Image src={userInfo ? userInfo.avatar_url : defaultAvatar} width={280} height={280} />
+                <Image src={userInfo ? userInfo.avatar_url : defaultAvatar} width={280} height={280}  />
             </div>
             <div className={s.user_name}>
                 {userInfo ? userInfo.login : 'User not found'}
             </div>
             <div className={s.user_link}>
-                <a href={userInfo ? userInfo.html_url : '/'}>{userInfo ? userInfo.login : 'User not found'}</a>
+                <a href={userInfo ? userInfo.html_url : '/'} target={'_blank'}>{userInfo ? userInfo.login : 'User not found'}</a>
             </div>
             <div className={s.user_followers}>
-                <span>{userInfo ? userInfo.followers : 'No data'} followers</span>
-                <span>{userInfo ? userInfo.following : 'No data'} followed</span>
+                <span>
+                    <Image src={'/followers-icon.svg'} width={22} height={14} />
+                    {userInfo ? userInfo.followers : 'No data'} followers
+                </span>
+                <span>
+                    <Image src={'/following-icon.svg'} width={16} height={16} />
+                    {userInfo ? userInfo.following : 'No data'} followed
+                </span>
             </div>
         </div>
     );

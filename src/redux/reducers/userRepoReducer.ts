@@ -1,8 +1,9 @@
-import {UserType} from "../../services/types";
+import {RepoType, UserType} from "../../services/types";
 import {ActionTypes} from "../actions";
 
 const initialState: InitialStateType = {
-    user: null
+    user: null,
+    repos: [] as Array<RepoType>
 }
 
 export const userRepoReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
@@ -14,6 +15,12 @@ export const userRepoReducer = (state: InitialStateType = initialState, action: 
                 user: action.payload.user
             }
 
+        case "SET_REPOS":
+            return {
+                ...state,
+                repos: action.payload.repos
+            }
+
         default:
             return state
     }
@@ -21,4 +28,5 @@ export const userRepoReducer = (state: InitialStateType = initialState, action: 
 
 type InitialStateType = {
     user: UserType | null
+    repos: Array<RepoType>
 }

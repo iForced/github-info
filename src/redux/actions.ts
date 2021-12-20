@@ -1,10 +1,4 @@
-import {UserType} from "../services/types";
-
-export const fetchUserRequest = () => {
-    return {
-        type: 'FETCH_USER_REQUEST',
-    }
-}
+import {RepoType, UserType} from "../services/types";
 
 export const setUser = (user: UserType) => {
     return {
@@ -12,8 +6,17 @@ export const setUser = (user: UserType) => {
         payload: {
             user,
         }
-    }
+    } as const
+}
+export const setRepos = (repos: Array<RepoType>) => {
+    return {
+        type: 'SET_REPOS',
+        payload: {
+            repos,
+        }
+    } as const
 }
 
 export type ActionTypes =
     ReturnType<typeof setUser>
+    | ReturnType<typeof setRepos>

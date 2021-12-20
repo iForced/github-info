@@ -3,6 +3,7 @@ import s from './Layout.module.css'
 import Head from "next/head";
 import Image from 'next/image'
 import Link from 'next/link';
+import SearchUser from "../SearchUser/SearchUser";
 
 const Layout: FC = ({children}) => {
     return (
@@ -18,9 +19,7 @@ const Layout: FC = ({children}) => {
                         </a>
                     </Link>
                 </div>
-                <div className={s.search}>
-                    <input className={s.search_input} type="text" placeholder='Search users'/>
-                </div>
+                <SearchUser />
             </header>
             <main className={s.main}>{children}</main>
             <footer className={s.footer}>

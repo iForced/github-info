@@ -4,15 +4,8 @@
     background-color: #0064EB;
     padding: 10px 50px;
 }
-.logo,
-.search {
+.logo {
     margin-right: 30px;
-}
-.search_input {
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    width: 500px;
 }
 .main {
     min-height: calc(100vh - 167px);

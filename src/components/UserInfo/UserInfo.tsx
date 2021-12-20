@@ -1,21 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from "./UserInfo.module.css";
 import Image from "next/image";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import {UserType} from "../../services/types";
+import defaultAvatar from '/public/avatar.png'
 
 const UserInfo = () => {
+
+    const dispatch = useDispatch()
+    const userInfo = useSelector<AppStateType, UserType | null>(state => state.userRepoReducer.user)
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_USER_REQUEST'})
+    }, [])
+
     return (
         <div className={s.user_info}>
             <div className={s.user_avatar}>
-                <Image src='/sfsdf' width={280} height={280} />
+                <Image src={userInfo ? userInfo.avatar_url : defaultAvatar} width={280} height={280} />
             </div>
             <div className={s.user_name}>
-                Valera Valeron
+                {userInfo ? userInfo.login : 'User not found'}
             </div>
             <div className={s.user_link}>
-                <a href="vk.com">valera</a>
+                <a href={userInfo ? userInfo.html_url : '/'}>{userInfo ? userInfo.login : 'User not found'}</a>
             </div>
             <div className={s.user_followers}>
-                <span>182 followers</span><span>88 followed</span>
+                <span>{userInfo ? userInfo.followers : 'No data'} followers</span>
+                <span>{userInfo ? userInfo.following : 'No data'} followed</span>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ export type UserType = {
     html_url: string
     followers: number
     following: number
+    public_repos: number
 }
 export type RepoType = {
     id: number

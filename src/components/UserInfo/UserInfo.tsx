@@ -18,13 +18,13 @@ const UserInfo = () => {
     return (
         <div className={s.user_info}>
             <div className={s.user_avatar}>
-                <Image src={userInfo ? userInfo.avatar_url : defaultAvatar} width={280} height={280}  />
+                <Image src={userInfo && userInfo.avatar_url ? userInfo.avatar_url : defaultAvatar} width={280} height={280}  />
             </div>
             <div className={s.user_name}>
-                {userInfo ? userInfo.login : 'User not found'}
+                {userInfo && userInfo.login ? userInfo.login : 'User not found'}
             </div>
             <div className={s.user_link}>
-                <a href={userInfo ? userInfo.html_url : '/'} target={'_blank'}>{userInfo ? userInfo.login : 'User not found'}</a>
+                <a href={userInfo && userInfo.html_url ? userInfo.html_url : '/'} target={'_blank'}>{userInfo && userInfo.login ? userInfo.login : 'User not found'}</a>
             </div>
             <div className={s.user_followers}>
                 <span>

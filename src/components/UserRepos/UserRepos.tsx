@@ -10,6 +10,7 @@ const UserRepos = () => {
 
     const dispatch = useDispatch()
     const repos = useSelector<AppStateType, Array<RepoType>>(state => state.userRepoReducer.repos)
+    const reposCount = useSelector<AppStateType, number>(state => state.userRepoReducer.user.public_repos)
 
     useEffect(() => {
         dispatch({type: 'FETCH_REPOS_REQUEST'})
@@ -17,21 +18,28 @@ const UserRepos = () => {
 
     return (
         <div className={s.user_repos}>
-            <div className={s.repos_count}>
-                Repositories (182)
-            </div>
-            <div className={s.repos_list}>
-                {
-                    repos.map(repo =>
-                        <RepoItem
-                            key={repo.id}
-                            name={repo.name}
-                            description={repo.description}
-                            url={repo.html_url}
-                        />)
-                }
-            </div>
-            <Paginator />
+            {
+                repos.length
+                    ? <>
+                        <div className={s.repos_count}>
+                            Repositories ({reposCount || 'No data'})
+                        </div>
+                        <div className={s.repos_list}>
+                            {
+                                repos.map(repo =>
+                                    <RepoItem
+                                        key={repo.id}
+                                        name={repo.name}
+                                        description={repo.description}
+                                        url={repo.html_url}
+                                    />)
+                            }
+                        </div>
+                        <Paginator/>
+                    </>
+                    : <span>Repos not found</span>
+            }
+
         </div>
     );
 };

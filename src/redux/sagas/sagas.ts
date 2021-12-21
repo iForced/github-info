@@ -1,15 +1,18 @@
-import {call, CallEffect, put, PutEffect, takeEvery} from "@redux-saga/core/effects";
+import {call, CallEffect, put, PutEffect, select, SelectEffect, takeEvery} from "@redux-saga/core/effects";
 import {getUser} from "../../services/getUser";
 import {ActionTypes, setRepos, setUser} from "../actions";
 import {RepoType, UserType} from "../../services/types";
 import {getRepos} from "../../services/getRepos";
+import {getPageNumber, getReposPerPage, getUserSearchTerm} from "../selectors";
+import {SagaIterator} from "redux-saga";
 
 export function * watchFetchUserSaga(): Generator {
     yield takeEvery('FETCH_USER_REQUEST', fetchUserSaga)
 }
-export function * fetchUserSaga(): Generator<CallEffect<UserType> | PutEffect<ActionTypes>, void, UserType> {
+export function * fetchUserSaga(): SagaIterator {
     try {
-        const user = yield call(getUser, 'iForced')
+        const userSearchTerm = yield select(getUserSearchTerm)
+        const user = yield call(getUser, userSearchTerm)
         yield put(setUser(user))
     } catch (e) {
         console.log(e)
@@ -19,9 +22,12 @@ export function * fetchUserSaga(): Generator<CallEffect<UserType> | PutEffect<Ac
 export function * watchFetchReposSaga(): Generator {
     yield takeEvery('FETCH_REPOS_REQUEST', fetchReposSaga)
 }
-export function * fetchReposSaga(): Generator<CallEffect<Array<RepoType>> | PutEffect<ActionTypes>, void, Array<RepoType>> {
+export function * fetchReposSaga(): SagaIterator {
     try {
-        const repos = yield call(getRepos, 'iForced')
+        const userSearchTerm = yield select(getUserSearchTerm)
+        const reposPerPage = yield select(getReposPerPage)
+        const pageNumber = yield select(getPageNumber)
+        const repos = yield call(getRepos, userSearchTerm, reposPerPage, pageNumber)
         yield put(setRepos(repos))
     } catch (e) {
         console.log(e)

@@ -32,7 +32,6 @@ const Paginator: FC<PropsType> = ({totalItems, itemsPerPage, currentPage, onPage
     }
 
     const handlePagesPortionChange = (e: MouseEvent<HTMLButtonElement>) => {
-        // debugger
         if (e.currentTarget.innerText === '<' && pagesPortionNumber > 1) {
             setPagesPortionNumber(prev => prev - 1)
         } else if (e.currentTarget.innerText === '>' && pagesPortionNumber < pagesPortionCount) {

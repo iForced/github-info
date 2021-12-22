@@ -6,9 +6,36 @@
 .total_count {
     margin: 0 30px;
 }
+.pages {
+    display: flex;
+    align-items: center;
+    width: 255px;
+}
 .page_number {
     padding: 10px;
     background-color: white;
     border-radius: 5px;
     margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+.page_number:hover {
+    cursor: pointer;
+}
+.active_page {
+    font-weight: bold;
+}
+.page_arrow {
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    margin: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+.page_arrow:hover {
+    cursor: pointer;
 }

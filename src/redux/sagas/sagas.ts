@@ -1,7 +1,6 @@
-import {call, CallEffect, put, PutEffect, select, SelectEffect, takeEvery} from "@redux-saga/core/effects";
+import {call, put, select, takeEvery} from "@redux-saga/core/effects";
 import {getUser} from "../../services/getUser";
-import {ActionTypes, setRepos, setUser} from "../actions";
-import {RepoType, UserType} from "../../services/types";
+import {setRepos, setUser} from "../actions";
 import {getRepos} from "../../services/getRepos";
 import {getPageNumber, getReposPerPage, getUserSearchTerm} from "../selectors";
 import {SagaIterator} from "redux-saga";

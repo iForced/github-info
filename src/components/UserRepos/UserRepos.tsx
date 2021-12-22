@@ -5,16 +5,23 @@ import Paginator from "../Paginator/Paginator";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {RepoType} from "../../services/types";
+import {setPage} from "../../redux/actions";
 
 const UserRepos = () => {
 
     const dispatch = useDispatch()
     const repos = useSelector<AppStateType, Array<RepoType>>(state => state.userRepoReducer.repos)
     const reposCount = useSelector<AppStateType, number>(state => state.userRepoReducer.user.public_repos)
+    const reposPerPage = useSelector<AppStateType, number>(state => state.userRepoReducer.reposPerPage)
+    const currentPage = useSelector<AppStateType, number>(state => state.userRepoReducer.pageNumber)
 
     useEffect(() => {
         dispatch({type: 'FETCH_REPOS_REQUEST'})
     }, [])
+
+    const handlePageChange = (pageNumber: number) => {
+        dispatch(setPage(pageNumber))
+    }
 
     return (
         <div className={s.user_repos}>
@@ -35,11 +42,15 @@ const UserRepos = () => {
                                     />)
                             }
                         </div>
-                        <Paginator/>
+                        <Paginator
+                            totalItems={reposCount}
+                            itemsPerPage={reposPerPage}
+                            currentPage={currentPage}
+                            onPageChange={handlePageChange}
+                        />
                     </>
                     : <span>Repos not found</span>
             }
-
         </div>
     );
 };

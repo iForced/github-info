@@ -45,8 +45,12 @@ const Paginator: FC<PropsType> = ({totalItems, itemsPerPage, currentPage, onPage
                 Total count: {pagesCount}
             </div>
             <div className={s.pages}>
-                {pagesPortionNumber > 1 &&
-                <button className={s.page_arrow} onClick={handlePagesPortionChange}>&lt;</button>}
+                <button
+                    className={s.page_arrow}
+                    onClick={handlePagesPortionChange}
+                    disabled={pagesPortionNumber === 1}
+                >&lt;
+                </button>
                 {
                     pagesElements
                         .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
@@ -58,8 +62,12 @@ const Paginator: FC<PropsType> = ({totalItems, itemsPerPage, currentPage, onPage
                         >{page}
                         </span>)
                 }
-                {pagesPortionCount > pagesPortionNumber &&
-                <button className={s.page_arrow} onClick={handlePagesPortionChange}>&gt;</button>}
+                <button
+                    className={s.page_arrow}
+                    onClick={handlePagesPortionChange}
+                    disabled={pagesPortionCount <= pagesPortionNumber}
+                >&gt;
+                </button>
             </div>
         </div>
     );

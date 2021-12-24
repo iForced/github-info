@@ -12,4 +12,10 @@ export type RepoType = {
     name: string
     description: string
     html_url: string
+    full_name: string
+    owner: {
+        login: string
+        html_url: string
+    }
+    has_issues: boolean
 }

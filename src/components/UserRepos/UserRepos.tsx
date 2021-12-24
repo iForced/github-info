@@ -36,6 +36,7 @@ const UserRepos = () => {
                                 repos.map(repo =>
                                     <RepoItem
                                         key={repo.id}
+                                        id={repo.id}
                                         name={repo.name}
                                         description={repo.description}
                                         url={repo.html_url}

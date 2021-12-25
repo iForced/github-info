@@ -1,23 +1,29 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore, Store} from "redux";
 import createSagaMiddleware from "@redux-saga/core";
 import {userRepoReducer} from "./reducers/userRepoReducer";
 import {rootSaga} from "./sagas/rootSaga";
-
-const sagaMiddleware = createSagaMiddleware()
+import {Context, createWrapper} from "next-redux-wrapper";
+import {Task} from "redux-saga";
 
 const rootReducer = combineReducers({
     userRepoReducer,
 })
 
-// @ts-ignore
-const composeEnhancers = typeof window !== 'undefined' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose
+export interface SagaStore extends Store {
+    sagaTask?: Task;
+}
 
-export const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(sagaMiddleware)
-))
+export const makeStore = (context: Context) => {
+    const sagaMiddleware = createSagaMiddleware();
 
-sagaMiddleware.run(rootSaga)
+    const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-export type AppStateType = ReturnType<typeof store.getState>
+    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
 
-export type AppDispatchType = typeof store.dispatch
+    return store;
+};
+
+// export type AppStateType = ReturnType<typeof makeStore>
+export type AppStateType = ReturnType<typeof rootReducer>
+
+export const wrapper = createWrapper<Store<AppStateType>>(makeStore, {debug: true});

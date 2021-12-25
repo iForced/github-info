@@ -1,5 +1,6 @@
 import {RepoType, UserType} from "../../services/types";
 import {ActionTypes} from "../actions";
+import {AnyAction} from "redux";
 
 const initialState: InitialStateType = {
     user: {} as UserType,
@@ -9,7 +10,7 @@ const initialState: InitialStateType = {
     pageNumber: 1,
 }
 
-export const userRepoReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
+export const userRepoReducer = (state: InitialStateType = initialState, action: AnyAction): InitialStateType => {
     switch (action.type) {
 
         case "SET_USER":

@@ -10,20 +10,26 @@ const rootReducer = combineReducers({
 })
 
 export interface SagaStore extends Store {
-    sagaTask?: Task;
+    sagaTask?: Task
 }
 
 export const makeStore = (context: Context) => {
     const sagaMiddleware = createSagaMiddleware();
+    // @ts-ignore
+    const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-    const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+    const store = createStore(rootReducer, composeEnhancers(
+        applyMiddleware(sagaMiddleware)
+    ));
 
     (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
 
-    return store;
+    return store
 };
 
-// export type AppStateType = ReturnType<typeof makeStore>
-export type AppStateType = ReturnType<typeof rootReducer>
+// export type AppStateType = ReturnType<typeof rootReducer>
 
-export const wrapper = createWrapper<Store<AppStateType>>(makeStore, {debug: true});
+export type AppStoreType = ReturnType<typeof makeStore>
+export type AppStateType = ReturnType<AppStoreType['getState']>
+
+export const wrapper = createWrapper<Store<AppStateType>>(makeStore, {debug: true})

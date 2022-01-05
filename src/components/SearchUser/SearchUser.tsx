@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import s from "./SearchUser.module.css";
 import {useDispatch} from "react-redux";
-import {setUserSearchTerm} from "../../redux/actions";
+import {fetchUserRequest, setUserSearchTerm} from "../../redux/actions";
 
 const SearchUser = () => {
 
@@ -15,8 +15,7 @@ const SearchUser = () => {
     const handleEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && searchValue) {
             dispatch(setUserSearchTerm(searchValue))
-            dispatch({type: 'FETCH_USER_REQUEST'})
-            dispatch({type: 'FETCH_REPOS_REQUEST'})
+            dispatch(fetchUserRequest())
             setSearchValue('')
         }
     }

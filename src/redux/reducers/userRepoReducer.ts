@@ -1,6 +1,6 @@
-import {RepoType, UserType} from "../../services/types";
-import {ActionTypes} from "../actions";
 import {AnyAction} from "redux";
+import {HYDRATE} from "next-redux-wrapper";
+import {RepoType, UserType} from "../types";
 
 const initialState: InitialStateType = {
     user: {} as UserType,
@@ -12,6 +12,9 @@ const initialState: InitialStateType = {
 
 export const userRepoReducer = (state: InitialStateType = initialState, action: AnyAction): InitialStateType => {
     switch (action.type) {
+
+        case HYDRATE:
+            return {...state, ...action.payload};
 
         case "SET_USER":
             return {

@@ -1,5 +1,15 @@
-import {RepoType, UserType} from "../services/types";
+import {RepoType, UserType} from "./types";
 
+export const fetchUserRequest = () => {
+    return {
+        type: 'FETCH_USER_REQUEST'
+    }
+}
+export const fetchReposRequest = () => {
+    return {
+        type: 'FETCH_REPOS_REQUEST'
+    }
+}
 export const setUser = (user: UserType) => {
     return {
         type: 'SET_USER',

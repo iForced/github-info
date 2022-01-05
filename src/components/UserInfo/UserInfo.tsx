@@ -1,41 +1,34 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from "./UserInfo.module.css";
 import Image from "next/image";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {UserType} from "../../services/types";
 import defaultAvatar from '/public/avatar.png'
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import {UserType} from "../../redux/types";
+import Link from 'next/link';
 
 const UserInfo = () => {
 
-    const dispatch = useDispatch()
-    const userInfo = useSelector<AppStateType, UserType | null>(state => state.userRepoReducer.user)
-
-    useEffect(() => {
-        dispatch({type: 'FETCH_USER_REQUEST'})
-    }, [])
+    const user = useSelector<AppStateType, UserType>(state => state.userRepoReducer.user)
 
     return (
         <div className={s.user_info}>
             <div className={s.user_avatar}>
-                <Image src={userInfo && userInfo.avatar_url ? userInfo.avatar_url : defaultAvatar} width={280} height={280}  />
+                <Image src={user.avatar_url || defaultAvatar} height={300} width={300} />
             </div>
-            <div className={s.user_name}>
-                {userInfo && userInfo.login ? userInfo.login : 'User not found'}
-            </div>
+            <h1 className={s.user_name}>
+                {user.login || 'User not found'}
+            </h1>
             <div className={s.user_link}>
-                <a href={userInfo && userInfo.html_url ? userInfo.html_url : '/'} target={'_blank'}>{userInfo && userInfo.login ? userInfo.login : 'User not found'}</a>
+                <a href={user.html_url}>{user.login || 'User not found'}</a>
             </div>
             <div className={s.user_followers}>
-                <span>
-                    <Image src={'/followers-icon.svg'} width={22} height={14} />
-                    {userInfo ? userInfo.followers : 'No data'} followers
-                </span>
-                <span>
-                    <Image src={'/following-icon.svg'} width={16} height={16} />
-                    {userInfo ? userInfo.following : 'No data'} followed
-                </span>
+                <span>{user.following} following</span>
+                <span>{user.followers} followers</span>
             </div>
+            <Link href={user.login ? `/userRepos/${user.login}` : '/404'}>
+                <a>{user.login ? `Show ${user.login}'s repos` : 'User not found'}</a>
+            </Link>
         </div>
     );
 };

@@ -1,11 +1,10 @@
 import React from 'react';
-import {GetStaticProps, NextPage} from "next";
+import {NextPage} from "next";
 import {wrapper} from "../../src/redux/store";
-import {fetchReposRequest, setRepos} from "../../src/redux/actions";
-import {END} from "redux-saga";
-import {getRepos} from "../../src/redux/sagas/sagas";
 import {RepoType} from "../../src/redux/types";
 import RepoItem from "../../src/components/RepoItem/RepoItem";
+import {getRepos} from "../../src/api/api";
+import {fetchReposRequest} from "../../src/redux/actions";
 
 type PropsType = {
     repos: Array<RepoType>
@@ -26,12 +25,14 @@ const RepoPage: NextPage<PropsType> = ({repos}) => {
     );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps((store) =>
+export const getServerSideProps = wrapper.getServerSideProps<PropsType>((store) =>
     async (context) => {
-        const userName = context.query.userName
-        const repos: Array<RepoType> = await getRepos(userName)
-        store.dispatch(setRepos(repos))
-        return {props: {repos}}
+        // not working
+        // store.dispatch(fetchReposRequest())
+        // const repos = store.getState().userRepoReducer.repos
+        const userName = context.params?.userName
+        const repos = await getRepos(userName)
+        return {props: {repos: repos}}
     }
 )
 

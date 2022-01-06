@@ -27,7 +27,7 @@ const UserInfo = () => {
                 <span>{user.followers} followers</span>
             </div>
             <Link href={user.login ? `/userRepos/${user.login}` : '/404'}>
-                <a>{user.login ? `Show ${user.login}'s repos` : 'User not found'}</a>
+                <a className={s.repos_link}>{user.login ? `Show ${user.login}'s repos` : 'User not found'}</a>
             </Link>
         </div>
     );

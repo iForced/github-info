@@ -27,9 +27,7 @@ export const makeStore = (context: Context) => {
     return store
 };
 
-// export type AppStateType = ReturnType<typeof rootReducer>
-
 export type AppStoreType = ReturnType<typeof makeStore>
 export type AppStateType = ReturnType<AppStoreType['getState']>
 
-export const wrapper = createWrapper<Store<AppStateType>>(makeStore, {debug: true})
+export const wrapper = createWrapper<Store<AppStateType>>(makeStore)
